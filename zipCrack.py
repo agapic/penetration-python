@@ -1,13 +1,16 @@
 import zipfile
 import optparse
-from threading import Thread
+import os
+from threading import *
 
 def extractFile(zFile, password):
     try:
         zFile.extractall(pwd=password)
         print '[+] Password = ' + password + '\n'
+        os._exit(1)
     except:
         pass
+
 
 def main():
     parser = optparse.OptionParser("usage%prog "+\
@@ -24,10 +27,11 @@ def main():
         zname = options.zname
         dname = options.dname
     zFile = zipfile.ZipFile(zname)
-    passFile = open(dname)
-    for line in passFile.readlines():
-        password = line.strip('\n')
-        t = Thread(target=extractFile, args=(zFile,password))
-        t.start()
+    with open(dname) as f:
+        for line in f:
+            password = line.strip('\n')
+            t = Thread(target=extractFile, args=(zFile,password))
+            t.start()
+
 if __name__ == '__main__':
-	main()
+    main()
