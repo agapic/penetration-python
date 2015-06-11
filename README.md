@@ -1,5 +1,4 @@
 # python-pen
-Python scripts useful for penetration testing
 Just some python scripts I made with regards to penetration testing and such as I prepare for OSCP.
 
 Cracking passwords in zip files
